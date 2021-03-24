@@ -32,5 +32,4 @@ class db{
         $this->db->close();
     }
 }
-$mydb = new db("root","","personal",false);
 ?>
