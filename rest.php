@@ -1,5 +1,5 @@
 <?php
-    include_once("dbcontrol.php");
+    include_once("DBcontroller.php");
     include_once("util.php");
     $debug_mode = false;
     
