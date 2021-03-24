@@ -1,20 +1,22 @@
 <?php
     include_once("DBcontroller.php");
     include_once("util.php");
-    $debug_mode = false;
+    $debug_mode = true;
     
     if($_SERVER['REQUEST_METHOD'] == 'GET'){ # select
         debug_text("for GET Method" ,$debug_mode); 
     }else if($_SERVER['REQUEST_METHOD'] == 'POST'){ # insert , update //ถ้ามีตัวแปรเข้ามาจะทำการเช็ค
         debug_text("for POST Method", $debug_mode);
+
         if(isset($_POST['name']) && isset($_POST['nickname'])){
+            echo "ok";
            if($_POST['password'] == $_POST['con_pass']){
             $name = $_POST['name'];
             $nickname = $_POST['nickname'];
             $pass = $_POST['password'];
             regis($name,$nickname,$pass,$debug_mode);
            }else{
-               echo "<script>alert('Password Not Match')</script>";
+               //echo "<script>alert('Password Not Match')</script>";
            }
         }
     }else{
