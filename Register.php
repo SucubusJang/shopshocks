@@ -14,7 +14,7 @@
     <div>
         <div style="width: 500px; margin: 0 auto;border: 2px solid red; padding: 20px">
         <h3>ShopShock Member Register</h3>
-            <form action="" method="post">
+            <form action="rest.php" method="post">
                 <table class="table" style="margin: 0 auto">
                     <tbody>
                         <tr>
