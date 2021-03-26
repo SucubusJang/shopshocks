@@ -7,7 +7,6 @@
         debug_text("for GET Method" ,$debug_mode); 
     }else if($_SERVER['REQUEST_METHOD'] == 'POST'){ # insert , update //ถ้ามีตัวแปรเข้ามาจะทำการเช็ค
         debug_text("for POST Method", $debug_mode);
-
         if(isset($_POST['name']) && isset($_POST['nickname'])){
             echo "ok";
            if($_POST['password'] == $_POST['con_pass']){
@@ -27,6 +26,7 @@
     function regis($name,$nickname,$pass,$debug_mode){
         $mydb = new db("root","","shopshock",$debug_mode);
         $id = $mydb->query("SELECT MAX(member_id)+1 as id FROM `member`");
-        $data = $mydb->query_only("INSERT INTO `member`(`member_id`, `name`, `user`, `password`, `type`) VALUES ('{$id}','{$nickname}','{$name}','{$pass}','01'");
+        echo $id;
+        $data = $mydb->query_only("INSERT INTO `member`(`member_id`, `name`, `user`, `password`, `type`) VALUES ('{$id['id']}','{$nickname}','{$name}','{$pass}','01'");
         return $data;
     }

@@ -21,20 +21,20 @@
                             <td>
                                 <label for="">Name:</label>
                             </td>
-                            <td><input type="text" name="" id="name"></td>
+                            <td><input type="text" name="name" id="name"></td>
                         </tr>
                         <tr>
                             <td><label for="">NickName:</label></td>
-                            <td><input type="text" name="" id="nickname"></td>
+                            <td><input type="text" name="nickname" id="nickname"></td>
                         </tr>
                         <tr>
                             <td><label for="">Password:</label></td>
-                            <td><input type="text" name="" id="password"></td>
+                            <td><input type="text" name="password" id="password"></td>
                         </tr>
                         <tr>
                             <td><label for="">Confirm Password:</label></td>
                             <td>
-                                <input type="text" name="" id="con_pass">
+                                <input type="text" name="con_pass" id="con_pass">
                             </td>
                         </tr>
                         <tr>
