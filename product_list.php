@@ -1,4 +1,7 @@
-<?php  session_start(); ?>
+<?php  
+    session_start(); 
+    $_SESSION['cus_id'] = 1234;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +20,7 @@
     </div>
     <script>
         let arr;
+        let cus_id = $_SESSION['cus_id'];
         lable = ['item_id', 'product code', 'product_name', 'brand', 'หน่วยนับ', 'ราคาขาย', 'Stock_Quantity'];
 
         function load_doc() {
@@ -68,13 +72,13 @@
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if(this.readyState==4 && this.status==200){
-                    
+
                 }
 
             };
             xhttp.open("POST","product_rest.php",true);
             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhttp.send("Product_id=1");
+            xhttp.send("Product_id=");
 
         }
     </script>
