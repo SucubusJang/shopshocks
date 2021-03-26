@@ -3,6 +3,8 @@
 
     if($_SERVER['REQUEST_METHOD'] == "GET"){
         echo json_encode(show_product(),JSON_UNESCAPED_UNICODE);
+    }else if($_SERVER['REQUEST_METHOD'] == "POST"){
+       
     }
 
     function show_product(){

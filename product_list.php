@@ -1,3 +1,4 @@
+<?php  session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,11 +22,11 @@
         function load_doc() {
             let xhttp = new XMLHttpRequest();
             out = document.getElementById("out");
+            text = "";
             xhttp.onreadystatechange = function() {
                 console.log(this.readyState + ", ", this.status);
                 if (this.readyState == 4 && this.status == 200) {
                     arr = JSON.parse(this.responseText);
-
                     text = "<table border='1'>";
                     for (i = 0; i < lable.length - 1; i++) {
                         text += "<th>" + lable[i] + "</th>";
@@ -48,6 +49,7 @@
 
         function sel_product(idx) {
             out = document.getElementById("out2");
+            text = "";
             text += "<table border='1'>";
             for (i = 0; i < lable.length - 1; i++) {
                 text += "<tr><td>" + lable[i] + "</td>";
@@ -62,14 +64,17 @@
 
         function open_op(idx){
             qty = document.getElementById("n"+idx);
-            alert(arr[idx][1]+"="+qty.value);
-            // let xhttp = XMLHttpRequest();
-            // xhttp.onreadystatechange = function() {
+           // alert(arr[idx][1]+"="+qty.value);
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if(this.readyState==4 && this.status==200){
+                    
+                }
 
-            // };
-            // xhttp.open("POST","product_rest.php",true);
-            // xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            // xhttp.send();
+            };
+            xhttp.open("POST","product_rest.php",true);
+            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhttp.send("Product_id=1");
 
         }
     </script>
