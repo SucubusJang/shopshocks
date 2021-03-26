@@ -8,7 +8,7 @@
                 echo "connect error";
             }
         }
-        function queryV2($sql,$option=MYSQLI_NUM){
+        function query($sql,$option=MYSQLI_NUM){
             $result = $this->db->query($sql);
             $data = $result->fetch_all($option);
         }
