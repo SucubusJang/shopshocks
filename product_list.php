@@ -33,7 +33,7 @@
                 text += "<tr>"+text+"</tr>";
             }
             text += "</table>";
-            out.innerHTML = arr;
+            out.innerHTML = text;
         }
     </script>
 </body>
