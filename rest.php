@@ -13,6 +13,8 @@
             $nickname = $_POST['nickname'];
             $pass = $_POST['password'];
             regis($name,$nickname,$pass,$debug_mode);
+            echo "<script>alert('Insert Complete')</script>";
+            //header("location: Register.php?ack=1");
            }else{
                echo "<script>alert('Password Not Match')</script>";
            }
@@ -26,6 +28,6 @@
         $mydb = new db("root","","shopshock",$debug_mode);
         $data = $mydb->query("SELECT MAX(member_id)+1 as id FROM `member`");
         $Id = $data[0]['id'];
-        $data = $mydb->query_only("INSERT INTO `member`(`member_id`, `name`, `user`, `password`, `type`) VALUES ('{$Id}','{$nickname}','{$name}','{$pass}','01'");
+        $data = $mydb->query_only("INSERT INTO `member`(`member_id`, `name`, `user`, `password`, `type`) VALUES ('{$Id}','{$nickname}','{$name}','{$pass}','01')");
         return $data;
     }
