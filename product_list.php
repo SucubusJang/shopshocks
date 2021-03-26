@@ -55,10 +55,22 @@
                 text += "<td>" + arr[idx][i] + "</td></tr>";
             }
             text += "<tr><td>" + lable[6] + "</td>";
-            text += "<td><input type='number' name='' id='' min='1' max='" + arr[idx][6] + "'></td></tr>";
-            text += "<tr><td colspan='2'><button onclick='open_op()'>Add to Cart</button><input type='reset' value='Reset'></td></tr>";
+            text += "<td><input type='number' name='' id='n"+idx+"' min='1' max='" + arr[idx][6] + "'></td></tr>";
+            text += "<tr><td colspan='2'><button onclick='open_op("+idx+")'>Add to Cart</button><input type='reset' value='Reset'></td></tr>";
             text += "</table></form>";
             out.innerHTML = text;
+        }
+
+        function open_op(idx){
+            qty = document.getElementById("n"+idx);
+            alert(arr[idx][1]+"="+qty.value);
+            let xhttp = XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+
+            };
+            xhttp.open("POST","product_rest.php",true);
+            xhttp.setRequestHeader();
+            xhttp.send();
 
         }
     </script>
