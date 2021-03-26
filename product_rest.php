@@ -8,10 +8,13 @@
     function show_product(){
         $shop = new database();
         $shop->connect();
-        $sql = "SELECT * FROM `product`";
+        $sql = "SELECT product.Product_id, product.Product_code, 
+        product.Product_Name, brand.Brand_name, unit.Unit_name, 
+        product.Cost, product.Stock_Quantity 
+ FROM  product,brand,unit 
+ WHERE product.Brand_ID = brand.Brand_id 
+ and   product.Unit_ID = unit.Unit_id LIMIT 1";
         $result = $shop->query($sql);
         $shop->close();
         return $result;
     }
-
-?>
