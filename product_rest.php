@@ -9,7 +9,7 @@
         $shop = new database();
         $shop->connect();
         $sql = "SELECT * FROM `product`";
-        $result = $shop->queryV2($sql);
+        $result = $shop->query($sql);
         $shop->close();
         return $result;
     }
