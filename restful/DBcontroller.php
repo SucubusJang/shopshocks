@@ -36,5 +36,8 @@ class db{
     function close(){
         $this->db->close();
     }
+
+    
+    
 }
 ?>
