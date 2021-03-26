@@ -48,7 +48,6 @@
 
         function sel_product(idx) {
             out = document.getElementById("out2");
-            text = "<form>";
             text += "<table border='1'>";
             for (i = 0; i < lable.length - 1; i++) {
                 text += "<tr><td>" + lable[i] + "</td>";
@@ -57,20 +56,20 @@
             text += "<tr><td>" + lable[6] + "</td>";
             text += "<td><input type='number' name='' id='n"+idx+"' min='1' max='" + arr[idx][6] + "'></td></tr>";
             text += "<tr><td colspan='2'><button onclick='open_op("+idx+")'>Add to Cart</button><input type='reset' value='Reset'></td></tr>";
-            text += "</table></form>";
+            text += "</table>";
             out.innerHTML = text;
         }
 
         function open_op(idx){
             qty = document.getElementById("n"+idx);
             alert(arr[idx][1]+"="+qty.value);
-            let xhttp = XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            // let xhttp = XMLHttpRequest();
+            // xhttp.onreadystatechange = function() {
 
-            };
-            xhttp.open("POST","product_rest.php",true);
-            xhttp.setRequestHeader();
-            xhttp.send();
+            // };
+            // xhttp.open("POST","product_rest.php",true);
+            // xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            // xhttp.send();
 
         }
     </script>
