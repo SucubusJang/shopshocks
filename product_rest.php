@@ -20,4 +20,8 @@
         $shop->close();
         return $result;
     }
+
+    function add_tot_cart(){
+        
+    }
 ?>
