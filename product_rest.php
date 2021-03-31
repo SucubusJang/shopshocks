@@ -20,10 +20,13 @@
         return $result;
     }
     function openbill(){
+        // 1. check bill is first || SELECT COUNT(`Bill_id`) as count FROM `bill`
+        // 2. last bil || SELECT `Bill_id` as Id,`Bill_Status` as status FROM bill ORDER by `Bill_id` DESC LIMIT 1 // ไว้เช็คสเตตัสของบิลว่า เสร็จแล้ว หรือ ยังไม่เสร็จ
         $db = new database();
         $db->connect();
+
         $sql = "SELECT `Bill_id` as Id FROM bill ORDER BY `Bill_id` DESC LIMIT 1";
-        $result = $db->query($sql);
+        $data = $db->query($sql);
         $db->close();
     }
 
