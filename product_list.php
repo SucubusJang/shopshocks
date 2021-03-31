@@ -29,7 +29,8 @@ $_SESSION['cus_id'] = 1;
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert(arr);
+                    console.log(this.responseText);
+                    // alert(arr);
                     arr = JSON.parse(this.responseText);
                     text = "<table border='1'>";
                     for (i = 0; i < label.length - 1; i++) {

@@ -4,6 +4,7 @@ include_once("class.db.php");
 if ($_SERVER["REQUEST_METHOD"] == 'GET') {
     echo json_encode(product_list(), JSON_UNESCAPED_UNICODE);
 } else if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+    
 }
 function product_list()
 {
