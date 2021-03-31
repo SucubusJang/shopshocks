@@ -25,28 +25,32 @@
         // 3. check bill || SELECT `Bill_id` as Id,`Bill_Status` as status FROM bill WHERE `Cus_ID` = 1 ORDER by `Bill_id` DESC LIMIT 1 // ไว้เช็คสเตตัสของบิลว่า เสร็จแล้ว หรือ ยังไม่เสร็จ
         $db = new database();
         $db->connect();
-
+        $_bill[0][0] = 0;
         $sql = ["firstbill"    =>"SELECT COUNT(`Bill_id`) count FROM `bill`",
                 "last_id"      =>"SELECT `Bill_id` FROM `bill` ORDER BY `Bill_id` DESC LIMIT 1",
                 "current_bill" =>"SELECT `Bill_id`,`Bill_Status` FROM bill WHERE `Cus_ID` = 1 ORDER by `Bill_id` DESC LIMIT 1",
                 "openbill"     =>"INSERT INTO `bill`(`Bill_id`, `Cus_ID`, `Bill_Status`) VALUES (1,'{$_SESSION['cus_id']}',0)",
-                "ins_detail"   =>"INSERT INTO `bill_detail`(`Bill_id`, `Product_ID`, `Quantity`, `Unit_Price`) 
+                "ins_pro"      =>"INSERT INTO `bill_detail`(`Bill_id`, `Product_ID`, `Quantity`, `Unit_Price`) 
                                   VALUES (1,'{$_POST['p_id']}','{$_POST['p_qty']}','{$_POST['p_price']}')",
-                "check_pro"    =>""
+                "check_pro"    =>"SELECT COUNT(`Product_ID`) FROM `bill_detail` WHERE `Bill_id` = '{$_bill[0][0]}' AND `Product_ID` = '{$_POST['p_id']}'"
                 ];
-        $result = $db->query($sql["firstbill"]);
-        if($result[0][0] == 0){
+        $_first = $db->query($sql["firstbill"]);
+        if($_first[0][0] == 0){
             $result = $db->exec($sql["openbill"]);
-            $result = $db->exec($sql["ins_detail"]);
+            $result = $db->exec($sql["ins_pro"]);
         }else{
-            $result = $db->query($sql["firstbill"]);
-            if($result[0][1] == 0){
-                 $result = $db->query($sql["firstbill"]);
-
+            $_bill = $db->query($sql["firstbill"]);
+            if($_bill[0][0] == 1){
+                 $check_pro = $db->query($sql["firstbill"]);
+                 if($check_pro[0][0] == 1){
+                    $result = $db->exec($sql["ins_pro"]);
+                 }
             }
         }
         $db->close();
-        return $result;
+        // return $_bill;
+        // return $result;
+        return $check_pro;
     }
 
 ?>
