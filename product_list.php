@@ -22,7 +22,7 @@ $_SESSION['cus_id'] = 1;
     <script>
         let arr;
         let cus_id = <?= $_SESSION['cus_id'] ?>;
-        label = ['item id', 'product code', 'product name', 'brand', 'หน่วยนับ', 'ราคาขาย', 'จำนวนสินค้าที่ต้องการ'];
+        label = ['product id', 'product code', 'product name', 'brand', 'หน่วยนับ', 'ราคาขาย', 'จำนวนสินค้าที่ต้องการ'];
 
         function load_doc() {
             out = document.getElementById("out");
@@ -70,7 +70,8 @@ $_SESSION['cus_id'] = 1;
 
         function open_po(idx, cus_id) {
             qty = document.getElementById("n" + idx);
-            alert("product_code=" + arr[idx][1] + "=" + qty.value);
+            // alert("product_code=" + arr[idx][1] + "=" + qty.value);
+            p_price = arr[idx][5];
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -79,7 +80,7 @@ $_SESSION['cus_id'] = 1;
             }
             xhttp.open("POST", "product_rest.php", true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("p_id=" + arr[idx][0] + "&p_qty=" + qty.value + "&cus_id=" + cus_id);
+            xhttp.send("p_id=" + arr[idx][0] + "&p_qty=" + qty.value + "&cus_id=" + cus_id +"&p_price="+ p_price);
         }
     </script>
 </body>
