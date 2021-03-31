@@ -34,7 +34,6 @@
                 "ins_pro"      =>"INSERT INTO `bill_detail`(`Bill_id`, `Product_ID`, `Quantity`, `Unit_Price`) 
                                   VALUES (1,'{$_POST['p_id']}','{$_POST['p_qty']}','{$_POST['p_price']}')",
                 "check_pro"    =>"SELECT COUNT(`Product_ID`) FROM `bill_detail` WHERE `Bill_id` = '{$_bill[0][0]}' AND `Product_ID` = '{$_POST['p_id']}'"
-    
                 ];
         $_first = $db->query($sql["firstbill"]);
         if($_first[0][0] == 0){
@@ -46,11 +45,15 @@
                  $check_pro = $db->query($sql["check_pro"]);
                  if($check_pro[0][0] == 0){
                     $result = $db->exec($sql["ins_pro"]);
+                 }else{
+                     //update
                  }
             }
         }
         $db->close();
-        return $result;
+        // $result1 = $db->exec($sql[" "]);
+        // $result2 = $db->exec($sql[" "]);
+        // return $result;
     }
 
 ?>
