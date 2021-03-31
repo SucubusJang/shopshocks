@@ -4,7 +4,7 @@
     if ($_SERVER["REQUEST_METHOD"] == 'GET') {
         echo json_encode(product_list(), JSON_UNESCAPED_UNICODE);
     } else if ($_SERVER["REQUEST_METHOD"] == 'POST') {
-
+        echo json_encode($_POST);
     }
     function product_list(){
         $db = new database();
@@ -22,7 +22,7 @@
     function openbill(){
         $db = new database();
         $db->connect();
-        $sql ="";
+        $sql = "SELECT `Bill_id` as Id FROM bill ORDER BY `Bill_id` DESC LIMIT 1";
         $result = $db->query($sql);
         $db->close();
     }
