@@ -33,7 +33,8 @@
                 "openbill"     =>"INSERT INTO `bill`(`Bill_id`, `Cus_ID`, `Bill_Status`) VALUES (1,'{$_SESSION['cus_id']}',0)",
                 "ins_pro"      =>"INSERT INTO `bill_detail`(`Bill_id`, `Product_ID`, `Quantity`, `Unit_Price`) 
                                   VALUES (1,'{$_POST['p_id']}','{$_POST['p_qty']}','{$_POST['p_price']}')",
-                "check_pro"    =>"SELECT COUNT(`Product_ID`) FROM `bill_detail` WHERE `Bill_id` = '{$_bill[0][0]}' AND `Product_ID` = '{$_POST['p_id']}'"
+                "check_pro"    =>"SELECT COUNT(`Product_ID`) FROM `bill_detail` WHERE `Bill_id` = '{$_bill[0][0]}' AND `Product_ID` = '{$_POST['p_id']}'",
+                "check_pro"    =>"UPDATE `bill_detail` SET `Quantity`='{$_POST['p_qty']}',`Unit_Price`='{$_POST['p_price']}' WHERE `Bill_id`='{$_bill[0][0]}' and `Product_ID`='{$_POST['p_id']}'"
                 ];
         $_first = $db->query($sql["firstbill"]);
         if($_first[0][0] == 0){
