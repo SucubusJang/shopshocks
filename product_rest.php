@@ -4,7 +4,7 @@
     if ($_SERVER["REQUEST_METHOD"] == 'GET') {
         echo json_encode(product_list(), JSON_UNESCAPED_UNICODE);
     } else if ($_SERVER["REQUEST_METHOD"] == 'POST') {
-        openbill();
+        echo json_encode(openbill());
     }
     function product_list(){
         $db = new database();
@@ -29,18 +29,18 @@
         $sql = ["firstbill"    =>"SELECT COUNT(`Bill_id`) count FROM `bill`",
                 "last_id"      =>"SELECT `Bill_id` FROM `bill` ORDER BY `Bill_id` DESC LIMIT 1",
                 "current_bill" =>"SELECT `Bill_id`,`Bill_Status` FROM bill WHERE `Cus_ID` = 1 ORDER by `Bill_id` DESC LIMIT 1",
-                "ins_bill_1st" =>"INSERT INTO `bill`(`Bill_id`, `Cus_ID`, `Bill_Status`) VALUES (1,1,0)",
-                "ins_detail"   =>"INSERT INTO `bill_detail`(`Bill_id`, `Product_ID`, `Quantity`, `Unit_Price`) VALUES (1,1,4,200)"
+                "ins_bill_1st" =>"INSERT INTO `bill`(`Bill_id`, `Cus_ID`, `Bill_Status`) VALUES (1,'{$_SESSION['cus_id']}',0)",
+                "ins_detail"   =>"INSERT INTO `bill_detail`(`Bill_id`, `Product_ID`, `Quantity`, `Unit_Price`) 
+                                  VALUES (1,'{$_POST['p_id']}','{$_POST['p_qty']}','{$_POST['p_price']}')"
                 ];
         $result = $db->query($sql["firstbill"]);
         if($result[0][0] == 0){
-            $sql = "INSERT INTO `bill`(`Bill_id`, `Cus_ID`, `Bill_Status`) VALUES (1,'{$_SESSION['cus_id']}',0)";
-            $result = $db->exec($sql);
-            $sql = "INSERT INTO `bill_detail`(`Bill_id`, `Product_ID`, `Quantity`, `Unit_Price`) 
-                    VALUES ('{$_SESSION['cus_id']}','{$_POST['p_id']}','{$_POST['p_qty']}','{$_POST['p_price']}')";
-            $result = $db->exec($sql);
+            $result = $db->query($sql["ins_bill_1st"]);
+            $result = $db->query($sql["ins_detail"]);
         }else{
-            
+            // $sql = "SELECT `Bill_id`,`Bill_Status` FROM bill WHERE `Cus_ID` = 1 ORDER by `Bill_id` DESC LIMIT 1";
+            // $result = $db->query($sql2["firstbill"]);
+
         }
         $db->close();
         return $result;
