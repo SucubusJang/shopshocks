@@ -1,7 +1,8 @@
-<?php  
-    session_start(); 
-    $_SESSION['cus_id'] = 1234;
+<?php
+session_start();
+$_SESSION['cus_id'] = 1;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,39 +14,39 @@
 </head>
 
 <body onload="load_doc()">
-    <div>
+    <center>
         <div id="out"></div>
         <br>
         <div id="out2"></div>
-    </div>
+    </center>
     <script>
         let arr;
-        let cus_id = $_SESSION['cus_id'];
-        lable = ['item_id', 'product code', 'product_name', 'brand', 'หน่วยนับ', 'ราคาขาย', 'Stock_Quantity'];
+        let cus_id = <?= $_SESSION['cus_id'] ?>;
+        label = ['item id', 'product code', 'product name', 'brand', 'หน่วยนับ', 'ราคาขาย', 'จำนวนสินค้าที่ต้องการ'];
 
         function load_doc() {
-            let xhttp = new XMLHttpRequest();
             out = document.getElementById("out");
-            text = "";
+            let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
-                console.log(this.readyState + ", ", this.status);
                 if (this.readyState == 4 && this.status == 200) {
+                    alert(arr);
                     arr = JSON.parse(this.responseText);
                     text = "<table border='1'>";
-                    for (i = 0; i < lable.length - 1; i++) {
-                        text += "<th>" + lable[i] + "</th>";
+                    for (i = 0; i < label.length - 1; i++) {
+                        text += "<th>" + label[i] + "</th>";
                     }
                     text = "<tr>" + text + "</tr>";
                     for (i = 0; i < arr.length; i++) {
                         for (j = 0; j < arr[i].length - 1; j++) {
                             text += "<td>" + arr[i][j] + "</td>";
                         }
-                        text += "<td>" + "<button onclick='sel_product(" + i + ")'> < ShopShock > </button>" + "</td>";
+                        text += "<td>" + "<button onclick='sel_product(" + i + ")'>< ShopShock ></button>" + "<td>";
                         text = "<tr>" + text + "</tr>";
                     }
+
                     text += "</table>";
+                    out.innerHTML = text;
                 }
-                out.innerHTML = text;
             }
             xhttp.open("GET", "product_rest.php", true);
             xhttp.send();
@@ -55,31 +56,29 @@
             out = document.getElementById("out2");
             text = "";
             text += "<table border='1'>";
-            for (i = 0; i < lable.length - 1; i++) {
-                text += "<tr><td>" + lable[i] + "</td>";
+            for (i = 0; i < label.length - 1; i++) {
+                text += "<tr><td>" + label[i] + "</td>";
                 text += "<td>" + arr[idx][i] + "</td></tr>";
             }
-            text += "<tr><td>" + lable[6] + "</td>";
-            text += "<td><input type='number' name='' id='n"+idx+"' min='1' max='" + arr[idx][6] + "'></td></tr>";
-            text += "<tr><td colspan='2'><button onclick='open_op("+idx+")'>Add to Cart</button><input type='reset' value='Reset'></td></tr>";
+            text += "<tr><td>" + label[6] + "</td>";
+            text += "<td><input type='number' id='n" + idx + "' min='1' max='" + arr[idx][6] + "'></td></tr>";
+            text += "<tr><td colspan='2'><button onclick='open_po(" + idx + "," + cus_id + ")'>add to cart</button><input type='reset'></td></tr>"
             text += "</table>";
             out.innerHTML = text;
         }
 
-        function open_op(idx){
-            qty = document.getElementById("n"+idx);
-           // alert(arr[idx][1]+"="+qty.value);
+        function open_po(idx, cus_id) {
+            qty = document.getElementById("n" + idx);
+            alert("product_code=" + arr[idx][1] + "=" + qty.value);
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
-                if(this.readyState==4 && this.status==200){
-
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText);
                 }
-
-            };
-            xhttp.open("POST","product_rest.php",true);
-            xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhttp.send("Product_id=");
-
+            }
+            xhttp.open("POST", "product_rest.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("p_id=" + arr[idx][0] + "&p_qty=" + qty.value + "&cus_id=" + cus_id);
         }
     </script>
 </body>

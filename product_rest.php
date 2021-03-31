@@ -1,27 +1,23 @@
+<?php session_start(); ?>
 <?php
-    include_once("class.php");
-
-    if($_SERVER['REQUEST_METHOD'] == "GET"){
-        echo json_encode(show_product(),JSON_UNESCAPED_UNICODE);
-    }else if($_SERVER['REQUEST_METHOD'] == "POST"){
-       
-    }
-
-    function show_product(){
-        $shop = new database();
-        $shop->connect();
-        $sql = "SELECT product.Product_id, product.Product_code, 
-                       product.Product_Name, brand.Brand_name, unit.Unit_name, 
-                       product.Cost, product.Stock_Quantity 
+include_once("class.db.php");
+if ($_SERVER["REQUEST_METHOD"] == 'GET') {
+    echo json_encode(product_list(), JSON_UNESCAPED_UNICODE);
+} else if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+}
+function product_list()
+{
+    $db = new database();
+    $db->connect();
+    $sql = "SELECT Product_id,Product_code,Product_Name,
+                       brand.Brand_name, unit.Unit_name,
+                       product.Cost, product.Stock_Quantity
                 FROM  product,brand,unit 
-                WHERE product.Brand_ID = brand.Brand_id 
+                WHERE product.Brand_ID = brand.Brand_id
                 and   product.Unit_ID  = unit.Unit_id";
-        $result = $shop->query($sql);
-        $shop->close();
-        return $result;
-    }
+    $result = $db->query($sql);
+    $db->close();
+    return $result;
+}
 
-    function add_tot_cart(){
-        
-    }
 ?>
